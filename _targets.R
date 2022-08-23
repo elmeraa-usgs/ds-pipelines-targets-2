@@ -8,35 +8,51 @@ tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse b
 
 p1_targets_list <- list(
   tar_target(
+    site_data_1,
+    download_nwis_site_data(file_out = '1_fetch/out/nwis_01427207_data.csv',
+    site_num = '01427207'),
+    format = "file"
+    ),
+  tar_target(
+    site_data_2,
+    download_nwis_site_data(file_out = '1_fetch/out/nwis_01432160_data.csv',
+    site_num = '01432160'), 
+    format = "file"
+  ),
+  tar_target(
+    site_data_3,
+    download_nwis_site_data(file_out = '1_fetch/out/nwis_01436690_data.csv',
+    site_num = '01436690'),
+    format = "file"
+  ),
+  tar_target(
+    site_data_4,
+    download_nwis_site_data(file_out = '1_fetch/out/nwis_01466500_data.csv',
+    site_num = '01466500'), 
+    format = "file"
+  ), 
+  tar_target(
     site_data,
-    download_nwis_data(),
+    sites_csvs(c(site_data_1, site_data_2, site_data_3, site_data_4))
   ),
   tar_target(
     site_info_csv,
-    nwis_site_info(fileout = "1_fetch/out/site_info.csv", site_data),
+    nwis_site_info(file_out = "1_fetch/out/site_info.csv", site_data),
     format = "file"
   )
 )
 
 p2_targets_list <- list(
   tar_target(
-    site_data_clean, 
-    process_data(site_data)
-  ),
-  tar_target(
-    site_data_annotated,
-    annotate_data(site_data_clean, site_filename = site_info_csv)
-  ),
-  tar_target(
-    site_data_styled,
-    style_data(site_data_annotated)
+    site_data_process_style, 
+    process_data(file_in = site_data, site_filename = site_info_csv)
   )
 )
 
 p3_targets_list <- list(
   tar_target(
     figure_1_png,
-    plot_nwis_timeseries(fileout = "3_visualize/out/figure_1.png", site_data_styled),
+    plot_nwis_timeseries(file_out = "3_visualize/out/figure_1.png", site_data_process_style),
     format = "file"
   )
 )
