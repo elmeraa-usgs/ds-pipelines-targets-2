@@ -1,4 +1,4 @@
-#' Combine process and styling steps into one function (and target) to later plot
+#' Processing and styling site data 
 #' @param file_in 
 #' @param site_filename csv, site_info.csv includes cols such as: station_nm, site_tp, lat_va, long_va, etc. for each site. 
 #' @return df, contains cleaned data for plotting time series
