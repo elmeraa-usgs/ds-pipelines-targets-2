@@ -6,34 +6,39 @@ source("3_visualize/src/plot_timeseries.R")
 options(tidyverse.quiet = TRUE)
 tar_option_set(packages = c("tidyverse", "dataRetrieval")) # Loading tidyverse because we need dplyr, ggplot2, readr, stringr, and purrr
 
+# set parameters for downloading nwis data 
+parameterCd <- '00010'
+startDate <- "2014-05-01"
+endDate <- "2015-05-01"
+
 p1_targets_list <- list(
   tar_target(
-    site_data_1,
+    site_data_01427207_csv,
     download_nwis_site_data(file_out = '1_fetch/out/nwis_01427207_data.csv',
-    site_num = '01427207'),
+    site_num = '01427207', parameterCd = parameterCd, startDate = startDate, endDate = endDate),
     format = "file"
     ),
   tar_target(
-    site_data_2,
+    site_data_01432160_csv,
     download_nwis_site_data(file_out = '1_fetch/out/nwis_01432160_data.csv',
-    site_num = '01432160'), 
+    site_num = '01432160', parameterCd = parameterCd, startDate = startDate, endDate = endDate), 
     format = "file"
   ),
   tar_target(
-    site_data_3,
+    site_data_01436690_csv,
     download_nwis_site_data(file_out = '1_fetch/out/nwis_01436690_data.csv',
-    site_num = '01436690'),
+    site_num = '01436690', parameterCd = parameterCd, startDate = startDate, endDate = endDate),
     format = "file"
   ),
   tar_target(
-    site_data_4,
+    site_data_01466500_csv,
     download_nwis_site_data(file_out = '1_fetch/out/nwis_01466500_data.csv',
-    site_num = '01466500'), 
+    site_num = '01466500', parameterCd = parameterCd, startDate = startDate, endDate = endDate), 
     format = "file"
   ), 
   tar_target(
     site_data,
-    sites_csvs(c(site_data_1, site_data_2, site_data_3, site_data_4))
+    sites_csvs(c(site_data_01427207_csv, site_data_01432160_csv, site_data_01436690_csv, site_data_01466500_csv))
   ),
   tar_target(
     site_info_csv,
