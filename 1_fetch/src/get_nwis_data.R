@@ -1,20 +1,15 @@
 #' Getting NWIS Data 
 #'
-#' @param site_num character, 4 different site_num: "01427207", "01432160", "01436690", "01466500"
+#' @param site_num character, a site number for a USGS streamgage
 #' @param file_out csv, csv exported for each designated site_num
-#' @param parameterCd 
+#' @param parameterCd, parameter code corresponding to the type of data queried
 #' @param startDate 
 #' @param endDate 
 #'
 #' @export csvs,export 5 csvs: site_info.csv, nwis_01427207_data.csv, nwis_01432160_data.csv, nwis_01436690_data.csv, & nwis_01466500_data.csv. 
 
-download_nwis_site_data <- function(file_out, site_num, parameterCd = '00010', startDate="2014-05-01", endDate="2015-05-01"){
-  
-  # # filepaths look something like directory/nwis_01432160_data.csv,
-  # # remove the directory with basename() and extract the 01432160 with the regular expression match
-  # site_num <- basename(filepath) %>% 
-  #   stringr::str_extract(pattern = "(?:[0-9]+)")
-  
+download_nwis_site_data <- function(file_out, site_num, parameterCd, startDate, endDate){
+
   # readNWISdata is from the dataRetrieval package
   data_out <- readNWISdata(sites=site_num, service="iv", 
                            parameterCd = parameterCd, startDate = startDate, endDate = endDate)
